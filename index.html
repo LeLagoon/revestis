@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ReVestis - Clothing Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+  <style>
+    /* Global styles */
+    body {
+      font-family: "Outfit", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Header styles */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2%;
+      background-color: #f5f5f5;
+    }
+    
+    .logo img {
+      width: 30%;
+      height: auto;
+    }
+    
+    .points {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+    
+    .points img {
+      width: 15%;
+      height: auto;
+    }
+    
+    /* Main styles */
+    main {
+      padding: 4%;
+    }
+
+    .clothes-wrapper {
+      text-align: center; /* Added */
+    }
+    
+    .clothes {
+  display: flex;
+  justify-content: center;
+  gap: 4%;
+  width: 100%;
+}
+
+    
+.item {
+  flex: .5 .5 5%; /* Increase scale of divs */
+  border: 1px solid #e5e5e5;
+  padding: 4%;
+  text-align: center;
+  border-radius: 10px;
+}
+    
+    .item img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 4%;
+    }
+    
+    .item h2 {
+      font-size: 1.8rem;
+      margin-bottom: 2%;
+    }
+    
+    .item p {
+      font-size: 1.4rem;
+      color: #888888;
+      margin-bottom: 3%;
+    }
+    
+    .buy-button {
+  padding: 3.5% 5%; /* Decrease scale of buy button */
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+    
+    .buy-button:hover {
+      background-color: #58c85e;
+    }
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .notification.hide {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="ReVestis.png" alt="ReVestis Logo">
+    </div>
+    <div class="points">
+      <img src="points.png" alt="Points Icon">
+      <span>500 Points</span>
+    </div>
+  </header>
+  
+  <main>
+    <div class="clothes-wrapper">
+      <div class="clothes">
+        <div class="item">
+          <img src="Cloth1.png" alt="Cloth 1">
+          <h2>Cloth 1</h2>
+          <p>Points needed: 100</p>
+          <button class="buy-button">Buy</button>
+        </div>
+      
+        <div class="item">
+          <img src="Cloth2.png" alt="Cloth 2">
+          <h2>Cloth 2</h2>
+          <p>Points needed: 100</p>
+          <button class="buy-button">Buy</button>
+        </div>
+      
+        <div class="item">
+          <img src="Cloth3.png" alt="Cloth 3">
+          <h2>Cloth 3</h2>
+          <p>Points needed: 100</p>
+          <button class="buy-button">Buy</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    // Get references to elements
+    const pointsElement = document.querySelector('.points span');
+    const buyButtons = document.querySelectorAll('.buy-button');
+  
+    let points = 500; // Initial points value
+  
+    // Update the points display
+    function updatePointsDisplay() {
+      pointsElement.textContent = points + ' Points';
+    }
+  
+    // Deduct points and update the display
+    function deductPoints() {
+      points -= 100;
+      updatePointsDisplay();
+    }
+  
+    // Show notification
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.textContent = message;
+      notification.classList.add('notification');
+      document.body.appendChild(notification);
+  
+      setTimeout(() => {
+        notification.classList.add('hide');
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 3000);
+    }
+  
+    // Handle buy button click
+    function handleBuyButtonClick() {
+      if (points >= 100) {
+        deductPoints();
+        showNotification('Purchased');
+      } else {
+        showNotification('Insufficient points. Earn more points to make a purchase.');
+      }
+    }
+  
+    // Attach event listeners to buy buttons
+    buyButtons.forEach(button => {
+      button.addEventListener('click', handleBuyButtonClick);
+    });
+  
+    // Initial points display
+    updatePointsDisplay();
+  </script>
+  
+</body>
+</html>
